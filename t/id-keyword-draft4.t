@@ -23,7 +23,6 @@ is $jv->_id_key, 'id', 'default id_key';
 delete $jv->{version};
 eval { $jv->load_and_validate_schema("${base_url}relative-to-the-root.json") };
 ok !$@, "${base_url}relative-to-the-root.json" or diag $@;
-is $jv->{version}, 4, 'detected version from draft-04';
 
 my $schema = $jv->schema;
 is $schema->get('/id'), 'http://example.com/relative-to-the-root.json',
