@@ -9,6 +9,7 @@ has errors => sub {
   my $self = shift;
   my $url  = $self->specification || 'http://json-schema.org/draft-04/schema#';
   my $jv   = $self->new(%$self)->data($url);
+
   return [$jv->validate($self->data)];
 };
 
@@ -37,12 +38,13 @@ sub data {
   my $self = shift;
   return $self->{data} // {} unless @_;
   $self->{data} = $self->_resolve(shift);
+  delete $self->{errors};
   return $self;
 }
 
 sub get {
   state $p = Mojo::JSON::Pointer->new;
-  return $p->data(shift->{data})->get(@_) if @_ == 2;
+  return $p->data(shift->{data})->get(@_) if @_ == 2 and ref $_[1] ne 'ARRAY';
   return JSON::Validator::Util::schema_extract(shift->data, @_);
 }
 

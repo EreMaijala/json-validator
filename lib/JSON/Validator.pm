@@ -33,6 +33,9 @@ our %SPEC_TO_CLASS = (
     'JSON::Validator::Schema::Draft6',
   'http://json-schema.org/draft-07/schema#' =>
     'JSON::Validator::Schema::Draft7',
+  'http://swagger.io/v2/schema.json' => 'JSON::Validator::Schema::OpenAPIv2',
+  'https://spec.openapis.org/oas/3.0/schema/2019-04-02' =>
+    'JSON::Validator::Schema::OpenAPIv3',
 );
 
 my $BUNDLED_CACHE_DIR = path(path(__FILE__)->dirname, qw(Validator cache));
